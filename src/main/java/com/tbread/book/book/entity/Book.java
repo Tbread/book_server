@@ -1,7 +1,6 @@
 package com.tbread.book.book.entity;
 
 import com.tbread.book.common.TimeStamp;
-import com.tbread.book.series.entity.Series;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
