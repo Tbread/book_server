@@ -1,5 +1,6 @@
 package com.tbread.book.config;
 
+import com.tbread.book.authentication.RestfulLoginAuthenticationFilter;
 import com.tbread.book.authentication.jwt.JwtFilterChain;
 import com.tbread.book.authentication.jwt.JwtProcessor;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,9 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        AuthenticationManager authenticationManager = authenticationConfiguration.getAuthenticationManager();
+        RestfulLoginAuthenticationFilter restfulLoginAuthenticationFilter = new RestfulLoginAuthenticationFilter(authenticationManager,jwtProcessor);
         http.sessionManagement(sm ->
                 sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.csrf(AbstractHttpConfigurer::disable);
@@ -48,6 +51,7 @@ public class SecurityConfig {
                                         .requestMatchers("/h2-console/**").permitAll()
                                         .requestMatchers("**").permitAll()
                 )
+                .addFilterAt(restfulLoginAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilterChain(jwtProcessor), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Getter
+@Table(name = "`User`")
 public class User extends TimeStamp {
 
     @Id
