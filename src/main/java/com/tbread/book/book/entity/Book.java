@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -57,6 +59,11 @@ public class Book extends TimeStamp {
         this.series = builder.series;
         this.ver = builder.ver;
         this.discard = builder.discard;
+    }
+
+    public void updateSeries(Series series) {
+        this.series = series;
+        this.isSeries = Objects.nonNull(series);
     }
 
     public static class BookBuilder {

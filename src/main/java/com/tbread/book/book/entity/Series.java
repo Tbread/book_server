@@ -1,6 +1,5 @@
 package com.tbread.book.book.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tbread.book.common.TimeStamp;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,7 +17,6 @@ public class Series extends TimeStamp {
     @Column(nullable = false)
     private String seriesName;
 
-    @JsonIgnore
     @Column(nullable = false)
     private boolean disable;
 
