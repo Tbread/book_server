@@ -50,17 +50,17 @@ public class BookService {
     public Result<?> addExistingBooks(AddExistingBookRequest req) {
         Optional<Book> optionalBook = bookRepository.findFirstByIsbnOrderByVerDesc(req.isbn());
         if (optionalBook.isEmpty()) {
-            return new Result<>("올바르지않은 ISBN 값입니다.",HttpStatus.BAD_REQUEST,false);
+            return new Result<>("올바르지않은 ISBN 값입니다.", HttpStatus.BAD_REQUEST, false);
         }
         Book existingBook = optionalBook.get();
         int ver = existingBook.getVer();
         long[] bookIdArr = new long[req.ea()];
-        for (int i = ver+1; i < ver + req.ea() + 1; i++) {
+        for (int i = ver + 1; i < ver + req.ea() + 1; i++) {
             Book book = new Book.BookBuilder(existingBook)
                     .setVer(i)
                     .build();
             bookRepository.save(book);
-            bookIdArr[i] = book.getId();
+            bookIdArr[i - ver - 1] = book.getId();
         }
         return new Result<>(HttpStatus.OK, bookIdArr, true);
     }
