@@ -66,29 +66,26 @@ public class Book extends TimeStamp {
         private boolean isSeries;
         private int ver;
         private boolean discard;
-
         private String isbn;
+
         private String isni;
         private Series series;
 
         public BookBuilder(String title,
                            String author,
                            String publisher,
+                           String isbn,
                            ClassificationNumber classificationNumber,
                            boolean isSeries,
                            int ver) {
             this.title = title;
             this.author = author;
             this.publisher = publisher;
+            this.isbn = isbn;
             this.classificationNumber = classificationNumber;
             this.isSeries = isSeries;
             this.ver = ver;
             this.discard = false;
-        }
-
-        public BookBuilder setIsbn(String isbn) {
-            this.isbn = isbn;
-            return this;
         }
 
         public BookBuilder setIsni(String isni) {
