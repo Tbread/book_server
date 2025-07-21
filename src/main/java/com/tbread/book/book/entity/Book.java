@@ -88,6 +88,7 @@ public class Book extends TimeStamp {
             this.ver = ver;
             this.discard = false;
         }
+        //폐기
 
         public BookBuilder(AddBookRequest req){
             this.title = req.title();
