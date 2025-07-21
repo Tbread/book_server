@@ -3,6 +3,7 @@ package com.tbread.book.book.service;
 
 import com.tbread.book.book.dto.request.AddBookRequest;
 import com.tbread.book.book.dto.request.AddExistingBookRequest;
+import com.tbread.book.book.dto.request.AddNewSeriesRequest;
 import com.tbread.book.book.entity.Book;
 import com.tbread.book.book.entity.Series;
 import com.tbread.book.book.repository.BookRepository;
@@ -63,5 +64,16 @@ public class BookService {
             bookIdArr[i - ver - 1] = book.getId();
         }
         return new Result<>(HttpStatus.OK, bookIdArr, true);
+    }
+
+    @Transactional
+    public Result<?> newSeries(AddNewSeriesRequest req){
+        Optional<Series> optionalSeries = seriesRepository.findBySeriesName(req.seriesName());
+        if (optionalSeries.isPresent()) {
+            return new Result<>("이미 존재하는 시리즈명입니다.", HttpStatus.BAD_REQUEST, false);
+        }
+        Series series = new Series(req.seriesName());
+        seriesRepository.save(series);
+        return new Result<>(HttpStatus.OK, series, true);
     }
 }

@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface SeriesRepository extends JpaRepository<Series,Long> {
     Optional<Series> findById(long id);
+    Optional<Series> findBySeriesName(String seriesName);
 }
