@@ -1,8 +1,6 @@
 package com.tbread.book.authentication;
 
 import com.tbread.book.user.entity.User;
-import com.tbread.book.user.entity.enums.UserRole;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,33 +10,25 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final String username;
-    private final String password;
-    @Getter
-    private final UserRole userRole;
-    @Getter
-    private final String ci;
+    private final User user;
 
     public UserDetailsImpl(final User user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.userRole = user.getUserRole();
-        this.ci = user.getCi();
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userRole.getRole()));
+        return List.of(new SimpleGrantedAuthority(user.getUserRole().getRole()));
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return user.getUsername();
     }
 
 }
