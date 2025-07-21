@@ -1,6 +1,7 @@
 package com.tbread.book.book.controller;
 
 import com.tbread.book.book.dto.request.AddBookRequest;
+import com.tbread.book.book.dto.request.AddExistingBookRequest;
 import com.tbread.book.book.service.BookService;
 import com.tbread.book.common.dto.Result;
 import jakarta.validation.Valid;
@@ -26,5 +27,13 @@ public class BookController {
             return new Result<>(br.getAllErrors().getFirst().getDefaultMessage(),HttpStatus.BAD_REQUEST,false).publish();
         }
         return bookService.addNewBooks(req).publish();
+    }
+
+    @PostMapping("add")
+    public ResponseEntity addBook(@Valid @RequestBody AddExistingBookRequest req, BindingResult br){
+        if (br.hasErrors()) {
+            return new Result<>(br.getAllErrors().getFirst().getDefaultMessage(),HttpStatus.BAD_REQUEST,false).publish();
+        }
+        return bookService.addExistingBooks(req).publish();
     }
 }
