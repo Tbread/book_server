@@ -24,6 +24,7 @@ public class User extends TimeStamp {
 
     @Column(nullable = false)
     private String ci;
+    //이외 기타 개인정보값 스킵 (추후 따로 테이블 만들어서 관리)
 
     @Column(nullable = false)
     private UserRole userRole;
