@@ -22,9 +22,8 @@ public class BookService {
 
     @Transactional
     public Result<?> addNewBooks(AddBookRequest req) {
-        Optional<Book> optionalBook = bookRepository.findByIsbn(req.isbn());
-        if (optionalBook.isPresent()) {
-            return new Result<>("이미 동일한 ISBN이 존재합니다.", HttpStatus.BAD_REQUEST, false);
+        if (bookRepository.existsByIsbn(req.isbn())) {
+            return new Result<>("이미 동일한 ISBN이 존재합니다. 기존 책 추가 기능을 이용해주세요.", HttpStatus.BAD_REQUEST, false);
         }
         Series series = null;
         if (req.isSeries()) {
