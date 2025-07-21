@@ -1,6 +1,7 @@
 package com.tbread.book.authentication;
 
 import com.tbread.book.user.entity.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
+    @Getter
     private final User user;
 
     public UserDetailsImpl(final User user) {
