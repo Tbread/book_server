@@ -1,5 +1,6 @@
 package com.tbread.book.book.entity;
 
+import com.tbread.book.book.dto.request.AddBookRequest;
 import com.tbread.book.common.TimeStamp;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -88,6 +89,17 @@ public class Book extends TimeStamp {
             this.discard = false;
         }
 
+        public BookBuilder(AddBookRequest req){
+            this.title = req.title();
+            this.author = req.author();
+            this.publisher = req.publisher();
+            this.isbn = req.isbn();
+            this.isni = req.isni();
+            this.classificationNumber = req.classificationNumber();
+            this.isSeries = req.isSeries();
+            this.discard = false;
+        }
+
         public BookBuilder setIsni(String isni) {
             this.isni = isni;
             return this;
@@ -95,6 +107,11 @@ public class Book extends TimeStamp {
 
         public BookBuilder setSeries(Series series) {
             this.series = series;
+            return this;
+        }
+
+        public BookBuilder setVer(int ver) {
+            this.ver = ver;
             return this;
         }
 
