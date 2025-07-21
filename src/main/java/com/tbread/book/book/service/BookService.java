@@ -2,6 +2,7 @@ package com.tbread.book.book.service;
 
 
 import com.tbread.book.book.dto.request.AddBookRequest;
+import com.tbread.book.book.dto.request.AddExistingBookRequest;
 import com.tbread.book.book.entity.Book;
 import com.tbread.book.book.entity.Series;
 import com.tbread.book.book.repository.BookRepository;
@@ -38,6 +39,25 @@ public class BookService {
             Book book = new Book.BookBuilder(req)
                     .setVer(i + 1)
                     .setSeries(series)
+                    .build();
+            bookRepository.save(book);
+            bookIdArr[i] = book.getId();
+        }
+        return new Result<>(HttpStatus.OK, bookIdArr, true);
+    }
+
+    @Transactional
+    public Result<?> addExistingBooks(AddExistingBookRequest req) {
+        Optional<Book> optionalBook = bookRepository.findFirstByIsbnOrderByVerDesc(req.isbn());
+        if (optionalBook.isEmpty()) {
+            return new Result<>("올바르지않은 ISBN 값입니다.",HttpStatus.BAD_REQUEST,false);
+        }
+        Book existingBook = optionalBook.get();
+        int ver = existingBook.getVer();
+        long[] bookIdArr = new long[req.ea()];
+        for (int i = ver+1; i < ver + req.ea() + 1; i++) {
+            Book book = new Book.BookBuilder(existingBook)
+                    .setVer(i)
                     .build();
             bookRepository.save(book);
             bookIdArr[i] = book.getId();
