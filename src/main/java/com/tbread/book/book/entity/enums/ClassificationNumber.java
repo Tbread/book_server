@@ -1,4 +1,4 @@
-package com.tbread.book.book.entity;
+package com.tbread.book.book.entity.enums;
 
 import lombok.Getter;
 

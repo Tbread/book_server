@@ -1,6 +1,7 @@
 package com.tbread.book.book.entity;
 
 import com.tbread.book.book.dto.request.AddBookRequest;
+import com.tbread.book.book.entity.enums.ClassificationNumber;
 import com.tbread.book.common.TimeStamp;
 import jakarta.persistence.*;
 import lombok.Getter;

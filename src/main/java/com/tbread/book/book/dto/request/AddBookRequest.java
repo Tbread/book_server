@@ -1,7 +1,7 @@
 package com.tbread.book.book.dto.request;
 
 import com.tbread.book.annotation.SeriesRequestPair;
-import com.tbread.book.book.entity.ClassificationNumber;
+import com.tbread.book.book.entity.enums.ClassificationNumber;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
