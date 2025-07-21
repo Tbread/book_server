@@ -1,4 +1,4 @@
-package com.tbread.book.user.dto;
+package com.tbread.book.user.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 
