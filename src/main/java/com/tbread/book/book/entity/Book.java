@@ -101,6 +101,18 @@ public class Book extends TimeStamp {
             this.discard = false;
         }
 
+        public BookBuilder(Book book){
+            this.title = book.getTitle();
+            this.author = book.getAuthor();
+            this.publisher = book.getPublisher();
+            this.isbn = book.getIsbn();
+            this.isni = book.getIsni();
+            this.classificationNumber = book.getClassificationNumber();
+            this.isSeries = book.isSeries();
+            this.discard = false;
+        }
+        //동일 책 추가용
+
         public BookBuilder setIsni(String isni) {
             this.isni = isni;
             return this;
