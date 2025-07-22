@@ -27,7 +27,7 @@ public class RestfulLoginAuthenticationFilter extends UsernamePasswordAuthentica
     public RestfulLoginAuthenticationFilter(AuthenticationManager authenticationManager,JwtProcessor jwtProcessor) {
         super.setAuthenticationManager(authenticationManager);
         this.jwtProcessor = jwtProcessor;
-        setFilterProcessesUrl("/api/v1/login");
+        setFilterProcessesUrl("/api/v1/user/signin");
     }
 
     @Override
