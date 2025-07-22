@@ -18,14 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
+    
 
-//    private final UserDetailsServiceImpl userDetailsService;
-
-//    @PostMapping("login")
-//    public ResponseEntity login(@Valid @RequestBody UsernameAndPasswordRequest req, BindingResult br){
-//        if (br.hasErrors()) {
-//            return new Result<>(br.getAllErrors().getFirst().getDefaultMessage(), HttpStatus.BAD_REQUEST,false).publish();
-//        }
-//        return userDetailsService.login(req).publish();
-//    }
 }

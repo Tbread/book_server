@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tbread.book.authentication.jwt.JwtProcessor;
 import com.tbread.book.common.dto.Result;
 import com.tbread.book.user.dto.request.UsernameAndPasswordRequest;
+import com.tbread.book.user.dto.response.LoginResponse;
+import com.tbread.book.user.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -50,7 +52,12 @@ public class RestfulLoginAuthenticationFilter extends UsernamePasswordAuthentica
             throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        //todo: jwt 리턴로직 작성
+        UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
+        User user = userDetails.getUser();
+        String refreshToken = jwtProcessor.createToken(user.getUsername(), JwtProcessor.JwtType.REFRESH);
+        String accessToken = jwtProcessor.createToken(user.getUsername(), JwtProcessor.JwtType.ACCESS);
+        Result res = new Result<>(HttpStatus.OK,new LoginResponse(refreshToken,accessToken),true);
+        response.getWriter().write(objectMapper.writeValueAsString(res));
     }
 
     @Override
