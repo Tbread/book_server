@@ -55,5 +55,7 @@ public class User extends TimeStamp {
             this.userRole = userRole;
             return this;
         }
+
+        public User build() {return new User(this);}
     }
 }
