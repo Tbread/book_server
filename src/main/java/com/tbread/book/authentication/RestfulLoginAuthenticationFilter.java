@@ -56,6 +56,9 @@ public class RestfulLoginAuthenticationFilter extends UsernamePasswordAuthentica
         User user = userDetails.getUser();
         String refreshToken = jwtProcessor.createToken(user.getUsername(), JwtProcessor.JwtType.REFRESH);
         String accessToken = jwtProcessor.createToken(user.getUsername(), JwtProcessor.JwtType.ACCESS);
+        response.addCookie(jwtProcessor.setJwtCookie(refreshToken, JwtProcessor.JwtType.REFRESH));
+        response.addCookie(jwtProcessor.setJwtCookie(accessToken, JwtProcessor.JwtType.ACCESS));
+        //자체 클라이언트사용하니 불필요할지도? 아니면 웹뷰사용?
         Result res = new Result<>(HttpStatus.OK,new LoginResponse(refreshToken,accessToken),true);
         response.getWriter().write(objectMapper.writeValueAsString(res));
     }
