@@ -43,6 +43,7 @@ public class JwtFilterChain extends GenericFilterBean {
                 }
             }
         }
+        //todo? : c#에서 체크해보니 set-cookie 헤더로 자동설정이 힘들것같음, 그냥 헤더로 바꾸는게 나을지도?
         chain.doFilter(request, response);
     }
 }
