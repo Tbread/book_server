@@ -5,8 +5,10 @@ import com.tbread.book.book.dto.request.AddBookRequest;
 import com.tbread.book.book.dto.request.AddExistingBookRequest;
 import com.tbread.book.book.dto.request.AddNewSeriesRequest;
 import com.tbread.book.book.dto.request.UpdateBookSeriesRequest;
+import com.tbread.book.book.dto.response.LibrarianBookData;
 import com.tbread.book.book.entity.Book;
 import com.tbread.book.book.entity.Series;
+import com.tbread.book.book.entity.enums.BookSearchCondition;
 import com.tbread.book.book.repository.BookRepository;
 import com.tbread.book.book.repository.SeriesRepository;
 import com.tbread.book.common.dto.Result;
@@ -15,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -95,5 +99,47 @@ public class BookService {
             bookRepository.save(book);
         }
         return new Result<>(HttpStatus.OK, books, true);
+    }
+
+    public Result<?> searchBooks(BookSearchCondition condition,String keyword,Boolean onlySeries,Boolean onlyDiscard){
+        //todo: 추후 쿼리 dsl 로 바꿔서 조건식 달기, 추가해야할 메소드가 너무 많으므로 쿼리 dsl 마이그레이션까지 boolean 관련 검색 로직 제거
+        List<LibrarianBookData> data = new ArrayList<>();
+        if (Objects.isNull(condition)) {
+            for (Book book : bookRepository.findAll()) {
+                data.add(new LibrarianBookData(book));
+            }
+        } else {
+            if (condition == BookSearchCondition.AUTHOR){
+                for (Book book : bookRepository.findAllByAuthorContaining(keyword)) {
+                    data.add(new LibrarianBookData(book));
+                }
+            }
+            if (condition == BookSearchCondition.ISBN){
+                for (Book book : bookRepository.findAllByIsbnContaining(keyword)) {
+                    data.add(new LibrarianBookData(book));
+                }
+            }
+            if (condition == BookSearchCondition.TITLE){
+                for (Book book : bookRepository.findAllByTitleContaining(keyword)) {
+                    data.add(new LibrarianBookData(book));
+                }
+            }
+            if (condition == BookSearchCondition.PUBLISHER){
+                for (Book book : bookRepository.findAllByPublisherContaining(keyword)) {
+                    data.add(new LibrarianBookData(book));
+                }
+            }
+            if (condition == BookSearchCondition.ISNI){
+                for (Book book : bookRepository.findAllByIsniContaining(keyword)) {
+                    data.add(new LibrarianBookData(book));
+                }
+            }
+            if (condition == BookSearchCondition.SERIES_NAME){
+                for (Book book : bookRepository.findAllBySeries_SeriesNameContaining(keyword)) {
+                    data.add(new LibrarianBookData(book));
+                }
+            }
+        }
+        return new Result<>(HttpStatus.OK,data,true);
     }
 }

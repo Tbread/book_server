@@ -39,7 +39,6 @@ public class Book extends TimeStamp {
     private boolean isSeries;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private Series series;
 
     @Column(nullable = false)
