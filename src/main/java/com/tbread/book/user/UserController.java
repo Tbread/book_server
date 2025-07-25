@@ -11,6 +11,7 @@ import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,11 @@ public class UserController {
         } catch (JwtException | IllegalArgumentException ignored) {
         }
         return new Result<>(HttpStatus.OK,true).publish();
+    }
+
+    @GetMapping("username-check")
+    public ResponseEntity usernameCheck(@RequestParam String username){
+        return userService.usernameCheck(username).publish();
     }
 
 }

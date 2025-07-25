@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -25,5 +27,15 @@ public class UserService {
         User user = new User.UserBuilder(req.username(),passwordEncoder.encode(req.password()), req.ci()).build();
         userRepository.save(user);
         return new Result<>(HttpStatus.OK,req.username(),true);
+    }
+
+    public Result usernameCheck(String username){
+        if (Objects.isNull(username) || username.isBlank()){
+            return new Result<>("아이디는 필수값입니다.",HttpStatus.BAD_REQUEST,false);
+        }
+        if (userRepository.existsByUsername(username)){
+            return new Result("이미 존재하는 아이디입니다.",HttpStatus.BAD_REQUEST,false);
+        }
+        return new Result<>("사용가능한 아이디입니다.",HttpStatus.OK,username,true);
     }
 }
