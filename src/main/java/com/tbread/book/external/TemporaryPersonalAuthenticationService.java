@@ -1,15 +1,12 @@
 package com.tbread.book.external;
 
-import com.tbread.book.user.entity.User;
 import com.tbread.book.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
-public class TemporaryPersonalAuthenticationServiceImpl implements PersonalAuthenticationService{
+public class TemporaryPersonalAuthenticationService implements PersonalAuthenticationService{
 
     private final UserRepository userRepository;
 
