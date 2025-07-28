@@ -37,6 +37,8 @@ public class User extends TimeStamp {
         this.userRole = builder.userRole;
     }
 
+    public void updatePassword(String password) {this.password = password;}
+
     public static class UserBuilder {
         private String username;
         private String password;

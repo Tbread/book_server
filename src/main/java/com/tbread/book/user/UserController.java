@@ -4,6 +4,7 @@ import com.tbread.book.authentication.UserDetailsImpl;
 import com.tbread.book.authentication.UserDetailsServiceImpl;
 import com.tbread.book.authentication.jwt.JwtProcessor;
 import com.tbread.book.common.dto.Result;
+import com.tbread.book.user.dto.request.ResetPasswordRequest;
 import com.tbread.book.user.dto.request.SignUpRequest;
 import com.tbread.book.user.dto.request.UsernameAndPasswordRequest;
 import com.tbread.book.user.service.UserService;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -56,6 +58,14 @@ public class UserController {
     @GetMapping("username-check")
     public ResponseEntity usernameCheck(@RequestParam String username){
         return userService.usernameCheck(username).publish();
+    }
+
+    @PostMapping("reset-password")
+    public ResponseEntity resetPassword(@RequestBody @Valid ResetPasswordRequest req,BindingResult br){
+        if(br.hasErrors()){
+            return new Result<>(br.getAllErrors().getFirst().getDefaultMessage(),HttpStatus.BAD_REQUEST,false).publish();
+        }
+        return userService.resetPassword(req).publish();
     }
 
 }
