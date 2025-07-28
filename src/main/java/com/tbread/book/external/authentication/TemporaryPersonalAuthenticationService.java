@@ -1,4 +1,4 @@
-package com.tbread.book.external;
+package com.tbread.book.external.authentication;
 
 import com.tbread.book.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

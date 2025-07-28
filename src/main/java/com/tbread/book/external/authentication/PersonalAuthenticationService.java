@@ -1,6 +1,4 @@
-package com.tbread.book.external;
-
-import com.tbread.book.user.entity.User;
+package com.tbread.book.external.authentication;
 
 public interface PersonalAuthenticationService {
     boolean isMatchCi(String username,String ci);

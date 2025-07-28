@@ -1,4 +1,4 @@
-package com.tbread.book.external;
+package com.tbread.book.external.authentication;
 
 public abstract class PersonalAuthenticationInfo {
     public String ci;
