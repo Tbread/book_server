@@ -9,6 +9,7 @@ import com.tbread.book.book.service.BookService;
 import com.tbread.book.common.dto.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -59,5 +60,10 @@ public class BookController {
                                      @RequestParam boolean onlySeries,
                                      @RequestParam boolean onlyDiscard){
         return bookService.searchBooks(condition, keyword, onlySeries, onlyDiscard).publish();
+    }
+
+    @GetMapping("series/search")
+    public ResponseEntity searchSeries(@RequestParam(defaultValue = "") String keyword){
+        return bookService.searchSeries(keyword).publish();
     }
 }

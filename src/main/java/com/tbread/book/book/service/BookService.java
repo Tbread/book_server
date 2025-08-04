@@ -142,4 +142,8 @@ public class BookService {
         }
         return new Result<>(HttpStatus.OK,data,true);
     }
+
+    public Result<?> searchSeries(String keyword){
+        return new Result<>(HttpStatus.OK,seriesRepository.findAllBySeriesNameContainingAndDisable(keyword,false),true);
+    }
 }
